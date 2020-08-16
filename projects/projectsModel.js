@@ -1,4 +1,4 @@
-const db = require('../data/dbConfig.js');
+const db = require("../data/dbConfig.js");
 
 module.exports = {
   insert,
@@ -15,13 +15,8 @@ function projectToBody(project) {
 }
 
 async function insert(project) {
-  const [id] = await db('projects').insert(project);
-  return db('projects').where({ id }).first();
-
-}
-
-async function update(id, changes) {
-  return null;
+  const [id] = await db("projects").insert(project);
+  return db("projects").where({ id }).first();
 }
 
 function remove(id) {
@@ -29,12 +24,11 @@ function remove(id) {
 }
 
 function getProjects(id) {
-  let query = db('projects');
-
+  let query = db("projects");
 
   if (id) {
     return query
-      .where('id', id)
+      .where("id", id)
       .first()
       .then((project) => {
         if (project) {
@@ -45,8 +39,11 @@ function getProjects(id) {
       });
   } else {
     return query.then((projects) => {
-
       return projects.map((project) => projectToBody(project));
     });
   }
+}
+
+async function update(id, changes) {
+  return null;
 }

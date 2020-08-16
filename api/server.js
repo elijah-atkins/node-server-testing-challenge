@@ -32,8 +32,7 @@ server.get("/projects/:id", (req, res) => {
 server.delete("/projects/:id", async (req, res, next) => {
   try {
     await Projects.remove(req.params.id);
-    res.json({ message: "DELETED", Projects: req.Projects });
-    res.json();
+    res.status(200).json({ message: `${req.params.id} DELETED`, Projects: req.Projects });
   } catch (error) {
     next(error);
   }

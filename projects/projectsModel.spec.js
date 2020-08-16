@@ -51,6 +51,16 @@ describe("projects model", () => {
       await Projects.remove(2);
       const removedProjects = await db("projects");
       expect(removedProjects).toHaveLength(10);
+    });  });
+    describe("getProjects()", () => {
+      it("should get an array of projects if nothing is passed into getProjects()", async () => {
+       const allProjects = await Projects.getProjects();
+        expect(allProjects).toHaveLength(12);
+      });
+      it("should get a single project if project id is passed to getProjects()", async () => {
+        const aProject = await Projects.getProjects(1);
+         expect(aProject.id).toBe(1);
+         expect(aProject.title).toBe("React Query Star Wars API")
+       });
     });
-  });
 });

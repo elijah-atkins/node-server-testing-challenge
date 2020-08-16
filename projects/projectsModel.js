@@ -31,6 +31,7 @@ function remove(id) {
 function getProjects(id) {
   let query = db('projects');
 
+
   if (id) {
     return query
       .where('id', id)
@@ -44,6 +45,7 @@ function getProjects(id) {
       });
   } else {
     return query.then((projects) => {
+
       return projects.map((project) => projectToBody(project));
     });
   }

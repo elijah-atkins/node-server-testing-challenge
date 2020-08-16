@@ -41,5 +41,18 @@ describe('server.js', () => {
           expect(response.body).toHaveLength(12);
           expect(response.type).toBe("application/json");
         });
+        it("GET /projects/1 returns first object with id of 1", async () => {
+          const response = await request(server).get("/projects/1");
+          expect(response.statusCode).toBe(200);
+          expect(response.body.id).toBe(1);
+          expect(response.body.title).toBe("React Query Star Wars API");
+          expect(response.type).toBe("application/json");
+        });
+        it("DELETE object with id of 1", async () => {
+          const response = await request(server).delete("/projects/1");
+          expect(response.statusCode).toBe(200);
+          expect(response.text).toContain("DELETED");
+          expect(response.type).toBe("application/json");
+        });
     });
 });

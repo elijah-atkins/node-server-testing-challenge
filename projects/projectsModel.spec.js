@@ -6,7 +6,7 @@ const Projects = require("./projectsModel.js");
 const shape = {
   title: "Hello World",
   description: "Test data that is just taking up space",
-
+  bullets: "hello",
   url: "wha",
   git: "hey hey",
 };

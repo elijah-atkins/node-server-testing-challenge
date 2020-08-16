@@ -5,14 +5,19 @@ exports.up = function (knex) {
     tbl.string("title", 255).notNullable().unique();
     tbl.string("description", 510).notNullable();
     tbl.string("bullets").notNullable();
-    tbl.string("img", 255).notNullable().unique();
+    tbl.string("img", 255).notNullable();
     tbl.string("url", 255).notNullable();
     tbl.string("git", 255).notNullable();
     tbl.boolean("hide").notNullable().default(false);
+  })
+  .createTable("users", tbl => {
+    tbl.increments();
+    tbl.string("username", 128).notNullable().unique().index();
+    tbl.string("password", 256).notNullable();
   })
 };
 
 exports.down = function (knex) {
   // undo the operation in up
-  return knex.schema.dropTableIfExists("projects");
+  return knex.schema.dropTableIfExists("projects").dropTableIfExists("users");
 };

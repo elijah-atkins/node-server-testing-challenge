@@ -37,7 +37,7 @@ describe("GET root", () => {
     expect(process.env.DB_ENV).toBe("testing");
     expect(response.statusCode).toBe(200);
     expect(response.type).toBe("application/json");
-    expect(response.body).toEqual({ api: "up" });
+    expect(response.body).toEqual({ api: "up and ATOM" });
   });
 });
 describe("GET / DELETE / POST / PUT", () => {
@@ -46,27 +46,27 @@ describe("GET / DELETE / POST / PUT", () => {
     await db.seed.run();
   });
   it("GET /projects array", async () => {
-    const response = await request(server).get("/projects");
+    const response = await request(server).get("/api/projects");
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveLength(12);
     expect(response.type).toBe("application/json");
   });
   it("GET /projects/1 returns first object with id of 1", async () => {
-    const response = await request(server).get("/projects/1");
+    const response = await request(server).get("/api/projects/1");
     expect(response.statusCode).toBe(200);
     expect(response.body.id).toBe(1);
     expect(response.body.title).toBe("React Query Star Wars API");
     expect(response.type).toBe("application/json");
   });
   it("DELETE object with id of 1", async () => {
-    const response = await request(server).delete("/projects/1");
+    const response = await request(server).delete("/api/projects/1");
     expect(response.statusCode).toBe(200);
     expect(response.text).toContain("DELETED");
     expect(response.type).toBe("application/json");
   });
   it("POST new object", async () => {
     const response = await request(server)
-      .post("/projects")
+      .post("/api/projects")
       .send({ ...body });
     expect(response.statusCode).toBe(200);
     expect(response.type).toBe("application/json");
@@ -74,7 +74,7 @@ describe("GET / DELETE / POST / PUT", () => {
   });
   it("PUT new title in object with ID 1", async () => {
     const response = await request(server)
-      .put("/projects/1")
+      .put("/api/projects/1")
       .send({title: "Star Wars"});
     expect(response.statusCode).toBe(200);
     expect(response.type).toBe("application/json");

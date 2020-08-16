@@ -1,5 +1,6 @@
 const server = require('./server.js');
 const request = require('supertest');
+const db = require("../data/dbConfig.js");
 
 //----------------------------------------------------------------------------//
 // create a section for server tests
@@ -21,28 +22,24 @@ describe('server.js', () => {
     //
     //------------------------------------------------------------------------//
     describe('GET /', () => {
-        //--------------------------------------------------------------------//
-        // test for status code
-
-        it('should return 200 OK', async () => {
-            const res = await request(server).get('/');
-
-            expect(res.status).toBe(200);
+        test("Environment setup", async () => {
+            const response = await request(server).get("/");
+            expect(process.env.DB_ENV).toBe("testing");
+            expect(response.statusCode).toBe(200);
+            expect(response.type).toBe("application/json");
+            expect(response.body).toEqual({ api: "up" });
+          });
+    });
+    describe("projects api routes", () => {
+        beforeEach(async () => {
+          // re-runs the seeds and starts with fresh database of our seeds
+          await db.seed.run();
         });
-
-        // does it return the right data type?
-        //--------------------------------------------------------------------//
-
-        it('should be json', async () => {
-            const res = await request(server).get('/');
-            expect(res.type).toBe('application/json');
-        })
-
-        // does it return the right data?
-
-        it('should return the right object', async () => {
-            const res = await request(server).get('/');
-            expect(res.body).toEqual({ api: 'up' });
-        })
+        it("GET /projects array", async () => {
+          const response = await request(server).get("/projects");
+          expect(response.statusCode).toBe(200);
+          expect(response.body).toHaveLength(12);
+          expect(response.type).toBe("application/json");
+        });
     });
 });

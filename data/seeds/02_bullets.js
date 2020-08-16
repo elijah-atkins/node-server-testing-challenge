@@ -131,5 +131,5 @@ exports.seed = function (knex) {
 
   return knex("bullets")
     .insert(bullets)
-    .then(() => console.log("\n== Seed data for bullets table added. ==\n"));
+  //  .then(() => console.log("\n== Seed data for bullets table added. ==\n"));
 };

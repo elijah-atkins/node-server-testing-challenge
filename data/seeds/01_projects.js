@@ -114,5 +114,5 @@ exports.seed = function (knex) {
 
   return knex("projects")
     .insert(projects)
-    .then(() => console.log("\n== Seed data for projects table added. ==\n"));
+ //   .then(() => console.log("\n== Seed data for projects table added. ==\n"));
 };

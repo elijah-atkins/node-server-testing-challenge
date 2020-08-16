@@ -45,5 +45,13 @@ function getProjects(id) {
 }
 
 async function update(id, changes) {
-  return null;
+  const project = await db("projects").where("id", id).update(changes)
+  return db("projects").where({ id }).first();
 }
+
+// function update(id, changes) {
+//   return db("projects")
+//     .where("id", id)
+//     .update(changes)
+//     .then(count => (count > 0 ? getProjects(id) : null));
+// }

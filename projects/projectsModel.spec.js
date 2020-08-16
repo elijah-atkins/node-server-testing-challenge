@@ -1,6 +1,4 @@
 const db = require("../data/dbConfig.js");
-const request = require("supertest");
-const server = require("../api/server");
 const Projects = require("./projectsModel.js");
 
 const shape = {

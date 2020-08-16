@@ -10,7 +10,7 @@ server.get("/", (req, res) => {
 });
 
 server.get("/projects", (req, res) => {
-  Projects.getAll()
+  Projects.getProjects()
     .then(projects => {
       res.status(200).json(projects);
     })

@@ -4,9 +4,15 @@ module.exports = {
   insert,
   update,
   remove,
-  getAll,
-  findById,
+  getProjects,
 };
+
+function projectToBody(project) {
+  const result = {
+    ...project,
+  };
+  return result;
+}
 
 async function insert(project) {
   const [id] = await db('projects').insert(project);
@@ -22,10 +28,23 @@ function remove(id) {
   return db("projects").where({ id }).delete();
 }
 
-function getAll() {
-  return db('projects');
-}
+function getProjects(id) {
+  let query = db('projects');
 
-function findById(id) {
-  return null;
+  if (id) {
+    return query
+      .where('id', id)
+      .first()
+      .then((project) => {
+        if (project) {
+          return projectToBody(project);
+        } else {
+          return null;
+        }
+      });
+  } else {
+    return query.then((projects) => {
+      return projects.map((project) => projectToBody(project));
+    });
+  }
 }

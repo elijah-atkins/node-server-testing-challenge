@@ -47,6 +47,19 @@ server.post("/projects", validateProjectsBody, async (req, res, next) => {
   }
 });
 
+server.put(
+  "/projects/:id",
+  validateProjectsBody,
+  async (req, res, next) => {
+    try {
+      const newProjects = await Projects.update(req.params.id, req.body);
+      res.json(newProjects);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 function validateProjectsBody(req, res, next) {
   if (Object.keys(req.body).length === 0) {
     res.status(400).json({ error: "Please provide a Projects body" });

@@ -72,4 +72,12 @@ describe("GET / DELETE / POST / PUT", () => {
     expect(response.type).toBe("application/json");
     expect(response.body.title).toBe("Canna Meds");
   });
+  it("POST new object", async () => {
+    const response = await request(server)
+      .put("/projects/1")
+      .send({title: "Star Wars"});
+    expect(response.statusCode).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body.title).toBe("Star Wars");
+  });
 });

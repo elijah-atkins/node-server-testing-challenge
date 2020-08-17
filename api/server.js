@@ -21,6 +21,4 @@ server.get("/", (req, res) => {
   res.status(200).json({ api: "up and ATOM" });
 });
 
-
-
 module.exports = server;

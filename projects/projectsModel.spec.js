@@ -7,6 +7,7 @@ const shape = {
   bullets: "hello",
   url: "wha",
   git: "hey hey",
+  img: "i'm a picture"
 };
 
 describe("projects model", () => {
@@ -17,8 +18,8 @@ describe("projects model", () => {
 
   describe("insert()", () => {
     it("should insert the provided projects into the DB", async () => {
-      await Projects.insert({ ...shape, title: "gaffer", img: "what" });
-      await Projects.insert({ ...shape, title: "sam", img: "sux" });
+      await Projects.insert({ ...shape, title: "gaffer" });
+      await Projects.insert({ ...shape, title: "sam" });
 
       const projects = await db("projects");
       expect(projects).toHaveLength(14);
@@ -44,8 +45,8 @@ describe("projects model", () => {
   });
   describe("update()", () => {
     it("should update the provided change into the DB", async () => {
-      await Projects.update(1, { title: "Hello World", img: "234" });
-      await Projects.update(2, { title: "Jack Skelington", img: "123" });
+      await Projects.update(1, { title: "Hello World" });
+      await Projects.update(2, { title: "Jack Skelington" });
 
       const projects = await db("projects");
       expect(projects).toHaveLength(12);

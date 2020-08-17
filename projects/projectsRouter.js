@@ -1,5 +1,8 @@
 const router = require("express").Router();
 
+//add restricted middleware to functions
+const restricted = require("../middleware/restricted.js");
+
 const Projects = require("../projects/projectsModel");
 
 router.get("/", (req, res) => {
